@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import IQKeyboardManagerSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,7 +17,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        if let tabBarController = self.window!.rootViewController as? UITabBarController {
+       
+        IQKeyboardManager.shared.enable = true
+        
+        let tabBarController = self.window?.rootViewController as! BaseTabBarController
+        
+        // check if already QR code stored
+        if UserDefaults.standard.object(forKey: "QRCodeDetails") != nil{
+            
+            tabBarController.selectedIndex = 0
+        }
+        else{
             tabBarController.selectedIndex = 2
         }
 

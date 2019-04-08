@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B0CB6CDFC9545233C78499A3 /* Pods_blinkTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9174B80A1FD487BA6E83CD8C /* Pods_blinkTests.framework */; };
+		D22822A9225BC144007B8166 /* ContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D22822A8225BC144007B8166 /* ContactsViewController.swift */; };
 		D22AF8A82257A86B00FE7A1D /* UserProfileData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D22AF8A72257A86B00FE7A1D /* UserProfileData.swift */; };
 		D29C7625224D5342002AEEA0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D29C7624224D5342002AEEA0 /* AppDelegate.swift */; };
 		D29C7627224D5342002AEEA0 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D29C7626224D5342002AEEA0 /* FirstViewController.swift */; };
@@ -18,6 +20,8 @@
 		D29C7647224D5343002AEEA0 /* blinkUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D29C7646224D5343002AEEA0 /* blinkUITests.swift */; };
 		D29C7655224D5C8D002AEEA0 /* ThirdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D29C7654224D5C8D002AEEA0 /* ThirdViewController.swift */; };
 		D29C765722528FF0002AEEA0 /* BaseTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D29C765622528FF0002AEEA0 /* BaseTabBarController.swift */; };
+		E283C745E91B973A42E7A51D /* Pods_blinkUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6543FE228097754D3CF17A28 /* Pods_blinkUITests.framework */; };
+		EA40E7CE66BDB6AC2DAC134C /* Pods_blink.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 366CC9CD2E8C944AE073B410 /* Pods_blink.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +42,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		366CC9CD2E8C944AE073B410 /* Pods_blink.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_blink.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		60FAC50A1D8B6B46409146C5 /* Pods-blinkTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-blinkTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-blinkTests/Pods-blinkTests.debug.xcconfig"; sourceTree = "<group>"; };
+		6543FE228097754D3CF17A28 /* Pods_blinkUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_blinkUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		85EED063334145418A31AAFC /* Pods-blink.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-blink.release.xcconfig"; path = "Pods/Target Support Files/Pods-blink/Pods-blink.release.xcconfig"; sourceTree = "<group>"; };
+		8DA82FC09A2D2BFC85B303D9 /* Pods-blinkUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-blinkUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-blinkUITests/Pods-blinkUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		905476F773FE08E11F2CF8C4 /* Pods-blinkTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-blinkTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-blinkTests/Pods-blinkTests.release.xcconfig"; sourceTree = "<group>"; };
+		9174B80A1FD487BA6E83CD8C /* Pods_blinkTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_blinkTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A27B21261436760054FF910B /* Pods-blink.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-blink.debug.xcconfig"; path = "Pods/Target Support Files/Pods-blink/Pods-blink.debug.xcconfig"; sourceTree = "<group>"; };
+		C245B8750115BE2779C25C28 /* Pods-blinkUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-blinkUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-blinkUITests/Pods-blinkUITests.release.xcconfig"; sourceTree = "<group>"; };
+		D22822A8225BC144007B8166 /* ContactsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsViewController.swift; sourceTree = "<group>"; };
 		D22AF8A72257A86B00FE7A1D /* UserProfileData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileData.swift; sourceTree = "<group>"; };
 		D29C7621224D5342002AEEA0 /* blink.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = blink.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D29C7624224D5342002AEEA0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -62,6 +76,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EA40E7CE66BDB6AC2DAC134C /* Pods_blink.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -69,6 +84,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B0CB6CDFC9545233C78499A3 /* Pods_blinkTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -76,12 +92,36 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E283C745E91B973A42E7A51D /* Pods_blinkUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		035EF14C51A780F3CDD37D03 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A27B21261436760054FF910B /* Pods-blink.debug.xcconfig */,
+				85EED063334145418A31AAFC /* Pods-blink.release.xcconfig */,
+				60FAC50A1D8B6B46409146C5 /* Pods-blinkTests.debug.xcconfig */,
+				905476F773FE08E11F2CF8C4 /* Pods-blinkTests.release.xcconfig */,
+				8DA82FC09A2D2BFC85B303D9 /* Pods-blinkUITests.debug.xcconfig */,
+				C245B8750115BE2779C25C28 /* Pods-blinkUITests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		B151EDA7856D7CC3A22894B8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				366CC9CD2E8C944AE073B410 /* Pods_blink.framework */,
+				9174B80A1FD487BA6E83CD8C /* Pods_blinkTests.framework */,
+				6543FE228097754D3CF17A28 /* Pods_blinkUITests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		D29C7618224D5342002AEEA0 = {
 			isa = PBXGroup;
 			children = (
@@ -89,6 +129,8 @@
 				D29C763A224D5343002AEEA0 /* blinkTests */,
 				D29C7645224D5343002AEEA0 /* blinkUITests */,
 				D29C7622224D5342002AEEA0 /* Products */,
+				035EF14C51A780F3CDD37D03 /* Pods */,
+				B151EDA7856D7CC3A22894B8 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -106,6 +148,7 @@
 			isa = PBXGroup;
 			children = (
 				D29C7624224D5342002AEEA0 /* AppDelegate.swift */,
+				D22822A8225BC144007B8166 /* ContactsViewController.swift */,
 				D29C7626224D5342002AEEA0 /* FirstViewController.swift */,
 				D29C765622528FF0002AEEA0 /* BaseTabBarController.swift */,
 				D29C7654224D5C8D002AEEA0 /* ThirdViewController.swift */,
@@ -144,9 +187,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D29C764B224D5343002AEEA0 /* Build configuration list for PBXNativeTarget "blink" */;
 			buildPhases = (
+				F928E8631E3DE3CDB5414FA9 /* [CP] Check Pods Manifest.lock */,
 				D29C761D224D5342002AEEA0 /* Sources */,
 				D29C761E224D5342002AEEA0 /* Frameworks */,
 				D29C761F224D5342002AEEA0 /* Resources */,
+				71AA2AD558AB19D9F3D87B57 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -161,6 +206,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D29C764E224D5343002AEEA0 /* Build configuration list for PBXNativeTarget "blinkTests" */;
 			buildPhases = (
+				6A642356D194BD1FD88B6DC3 /* [CP] Check Pods Manifest.lock */,
 				D29C7633224D5343002AEEA0 /* Sources */,
 				D29C7634224D5343002AEEA0 /* Frameworks */,
 				D29C7635224D5343002AEEA0 /* Resources */,
@@ -179,6 +225,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D29C7651224D5343002AEEA0 /* Build configuration list for PBXNativeTarget "blinkUITests" */;
 			buildPhases = (
+				BE45230CC517B3561AF58FD2 /* [CP] Check Pods Manifest.lock */,
 				D29C763E224D5343002AEEA0 /* Sources */,
 				D29C763F224D5343002AEEA0 /* Frameworks */,
 				D29C7640224D5343002AEEA0 /* Resources */,
@@ -263,12 +310,88 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		6A642356D194BD1FD88B6DC3 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-blinkTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		71AA2AD558AB19D9F3D87B57 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-blink/Pods-blink-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-blink/Pods-blink-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BE45230CC517B3561AF58FD2 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-blinkUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F928E8631E3DE3CDB5414FA9 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-blink-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		D29C761D224D5342002AEEA0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				D29C7629224D5342002AEEA0 /* SecondViewController.swift in Sources */,
+				D22822A9225BC144007B8166 /* ContactsViewController.swift in Sources */,
 				D29C7625224D5342002AEEA0 /* AppDelegate.swift in Sources */,
 				D22AF8A82257A86B00FE7A1D /* UserProfileData.swift in Sources */,
 				D29C765722528FF0002AEEA0 /* BaseTabBarController.swift in Sources */,
@@ -446,6 +569,7 @@
 		};
 		D29C764C224D5343002AEEA0 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A27B21261436760054FF910B /* Pods-blink.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -467,6 +591,7 @@
 		};
 		D29C764D224D5343002AEEA0 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 85EED063334145418A31AAFC /* Pods-blink.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -488,6 +613,7 @@
 		};
 		D29C764F224D5343002AEEA0 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 60FAC50A1D8B6B46409146C5 /* Pods-blinkTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -508,6 +634,7 @@
 		};
 		D29C7650224D5343002AEEA0 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 905476F773FE08E11F2CF8C4 /* Pods-blinkTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -528,6 +655,7 @@
 		};
 		D29C7652224D5343002AEEA0 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8DA82FC09A2D2BFC85B303D9 /* Pods-blinkUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -547,6 +675,7 @@
 		};
 		D29C7653224D5343002AEEA0 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C245B8750115BE2779C25C28 /* Pods-blinkUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;

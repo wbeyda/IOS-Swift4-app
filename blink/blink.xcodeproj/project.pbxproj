@@ -7,6 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		383CD3A6225F741C00405B37 /* ABMenuTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 383CD3A2225F741C00405B37 /* ABMenuTableViewCell.m */; };
+		383CD3A7225F741C00405B37 /* UITableView+VisibleMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 383CD3A5225F741C00405B37 /* UITableView+VisibleMenuCell.m */; };
+		383CD3AB225F742D00405B37 /* UIView+XIB.m in Sources */ = {isa = PBXBuildFile; fileRef = 383CD3A9225F742D00405B37 /* UIView+XIB.m */; };
+		383CD3AE225F746400405B37 /* ABCellMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 383CD3AC225F746400405B37 /* ABCellMenuView.m */; };
+		383CD3B0225F768200405B37 /* ABCellMailStyleMenuView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 383CD3AF225F768200405B37 /* ABCellMailStyleMenuView.xib */; };
+		383DE7BE226074C4002116DC /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383DE7BD226074C4002116DC /* LoginViewController.swift */; };
+		383DE7C022609073002116DC /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383DE7BF22609073002116DC /* SplashViewController.swift */; };
+		383DE7C2226090F5002116DC /* ledgerLeapLaunchScreen.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 383DE7C1226090F4002116DC /* ledgerLeapLaunchScreen.mp4 */; };
+		383DE7C4226094EB002116DC /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383DE7C3226094EB002116DC /* WelcomeViewController.swift */; };
+		383DE7CA2260AE53002116DC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 383DE7C92260AE52002116DC /* GoogleService-Info.plist */; };
+		388667FA225E4AAB006D4370 /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 388667F9225E4AAA006D4370 /* Contact.swift */; };
+		38EDD2D8225CF6B200312EDE /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38EDD2D7225CF6B200312EDE /* HeaderView.swift */; };
+		38EDD2DA225CF6EF00312EDE /* HeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38EDD2D9225CF6EF00312EDE /* HeaderView.xib */; };
+		38EDD2DE225CFAB500312EDE /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38EDD2DD225CFAB500312EDE /* HistoryViewController.swift */; };
+		38EDD2E0225CFB5800312EDE /* DateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38EDD2DF225CFB5800312EDE /* DateCell.swift */; };
+		38EDD2E2225CFB6400312EDE /* RateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38EDD2E1225CFB6400312EDE /* RateCell.swift */; };
+		38EDD2E6225D0B1E00312EDE /* HCSStarRatingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 38EDD2E5225D0B1E00312EDE /* HCSStarRatingView.m */; };
 		B0CB6CDFC9545233C78499A3 /* Pods_blinkTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9174B80A1FD487BA6E83CD8C /* Pods_blinkTests.framework */; };
 		D22822A9225BC144007B8166 /* ContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D22822A8225BC144007B8166 /* ContactsViewController.swift */; };
 		D22AF8A82257A86B00FE7A1D /* UserProfileData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D22AF8A72257A86B00FE7A1D /* UserProfileData.swift */; };
@@ -43,6 +60,29 @@
 
 /* Begin PBXFileReference section */
 		366CC9CD2E8C944AE073B410 /* Pods_blink.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_blink.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		383CD3A2225F741C00405B37 /* ABMenuTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABMenuTableViewCell.m; sourceTree = "<group>"; };
+		383CD3A3225F741C00405B37 /* UITableView+VisibleMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+VisibleMenuCell.h"; sourceTree = "<group>"; };
+		383CD3A4225F741C00405B37 /* ABMenuTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABMenuTableViewCell.h; sourceTree = "<group>"; };
+		383CD3A5225F741C00405B37 /* UITableView+VisibleMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+VisibleMenuCell.m"; sourceTree = "<group>"; };
+		383CD3A9225F742D00405B37 /* UIView+XIB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+XIB.m"; sourceTree = "<group>"; };
+		383CD3AA225F742D00405B37 /* UIView+XIB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+XIB.h"; sourceTree = "<group>"; };
+		383CD3AC225F746400405B37 /* ABCellMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABCellMenuView.m; sourceTree = "<group>"; };
+		383CD3AD225F746400405B37 /* ABCellMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABCellMenuView.h; sourceTree = "<group>"; };
+		383CD3AF225F768200405B37 /* ABCellMailStyleMenuView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ABCellMailStyleMenuView.xib; sourceTree = "<group>"; };
+		383DE7BD226074C4002116DC /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		383DE7BF22609073002116DC /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
+		383DE7C1226090F4002116DC /* ledgerLeapLaunchScreen.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = ledgerLeapLaunchScreen.mp4; sourceTree = "<group>"; };
+		383DE7C3226094EB002116DC /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
+		383DE7C92260AE52002116DC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		388667F9225E4AAA006D4370 /* Contact.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
+		38EDD2D7225CF6B200312EDE /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
+		38EDD2D9225CF6EF00312EDE /* HeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HeaderView.xib; sourceTree = "<group>"; };
+		38EDD2DD225CFAB500312EDE /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
+		38EDD2DF225CFB5800312EDE /* DateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCell.swift; sourceTree = "<group>"; };
+		38EDD2E1225CFB6400312EDE /* RateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RateCell.swift; sourceTree = "<group>"; };
+		38EDD2E4225D0B1E00312EDE /* HCSStarRatingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HCSStarRatingView.h; sourceTree = "<group>"; };
+		38EDD2E5225D0B1E00312EDE /* HCSStarRatingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HCSStarRatingView.m; sourceTree = "<group>"; };
+		38EDD2E7225D0B2F00312EDE /* blink-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "blink-Bridging-Header.h"; sourceTree = "<group>"; };
 		60FAC50A1D8B6B46409146C5 /* Pods-blinkTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-blinkTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-blinkTests/Pods-blinkTests.debug.xcconfig"; sourceTree = "<group>"; };
 		6543FE228097754D3CF17A28 /* Pods_blinkUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_blinkUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		85EED063334145418A31AAFC /* Pods-blink.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-blink.release.xcconfig"; path = "Pods/Target Support Files/Pods-blink/Pods-blink.release.xcconfig"; sourceTree = "<group>"; };
@@ -112,6 +152,48 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		383CD3A1225F741400405B37 /* ABMenuTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				383CD3A4225F741C00405B37 /* ABMenuTableViewCell.h */,
+				383CD3A2225F741C00405B37 /* ABMenuTableViewCell.m */,
+				383CD3A3225F741C00405B37 /* UITableView+VisibleMenuCell.h */,
+				383CD3A5225F741C00405B37 /* UITableView+VisibleMenuCell.m */,
+				383CD3AD225F746400405B37 /* ABCellMenuView.h */,
+				383CD3AC225F746400405B37 /* ABCellMenuView.m */,
+				383CD3AF225F768200405B37 /* ABCellMailStyleMenuView.xib */,
+			);
+			path = ABMenuTableViewCell;
+			sourceTree = "<group>";
+		};
+		383CD3A8225F742700405B37 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				383CD3AA225F742D00405B37 /* UIView+XIB.h */,
+				383CD3A9225F742D00405B37 /* UIView+XIB.m */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		38EDD2D6225CF69A00312EDE /* cell */ = {
+			isa = PBXGroup;
+			children = (
+				38EDD2DF225CFB5800312EDE /* DateCell.swift */,
+				38EDD2E1225CFB6400312EDE /* RateCell.swift */,
+			);
+			path = cell;
+			sourceTree = "<group>";
+		};
+		38EDD2E3225D0B1400312EDE /* HCSStarRatingView */ = {
+			isa = PBXGroup;
+			children = (
+				38EDD2E4225D0B1E00312EDE /* HCSStarRatingView.h */,
+				38EDD2E5225D0B1E00312EDE /* HCSStarRatingView.m */,
+				38EDD2E7225D0B2F00312EDE /* blink-Bridging-Header.h */,
+			);
+			path = HCSStarRatingView;
+			sourceTree = "<group>";
+		};
 		B151EDA7856D7CC3A22894B8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -147,17 +229,30 @@
 		D29C7623224D5342002AEEA0 /* blink */ = {
 			isa = PBXGroup;
 			children = (
+				383CD3A8225F742700405B37 /* Extensions */,
+				383CD3A1225F741400405B37 /* ABMenuTableViewCell */,
+				388667F9225E4AAA006D4370 /* Contact.swift */,
+				38EDD2E3225D0B1400312EDE /* HCSStarRatingView */,
+				38EDD2D6225CF69A00312EDE /* cell */,
 				D29C7624224D5342002AEEA0 /* AppDelegate.swift */,
+				383DE7C3226094EB002116DC /* WelcomeViewController.swift */,
 				D22822A8225BC144007B8166 /* ContactsViewController.swift */,
+				383DE7BD226074C4002116DC /* LoginViewController.swift */,
+				383DE7BF22609073002116DC /* SplashViewController.swift */,
 				D29C7626224D5342002AEEA0 /* FirstViewController.swift */,
+				38EDD2DD225CFAB500312EDE /* HistoryViewController.swift */,
 				D29C765622528FF0002AEEA0 /* BaseTabBarController.swift */,
 				D29C7654224D5C8D002AEEA0 /* ThirdViewController.swift */,
 				D29C7628224D5342002AEEA0 /* SecondViewController.swift */,
+				38EDD2D7225CF6B200312EDE /* HeaderView.swift */,
+				38EDD2D9225CF6EF00312EDE /* HeaderView.xib */,
 				D29C762A224D5342002AEEA0 /* Main.storyboard */,
 				D29C762D224D5343002AEEA0 /* Assets.xcassets */,
 				D29C762F224D5343002AEEA0 /* LaunchScreen.storyboard */,
 				D29C7632224D5343002AEEA0 /* Info.plist */,
 				D22AF8A72257A86B00FE7A1D /* UserProfileData.swift */,
+				383DE7C1226090F4002116DC /* ledgerLeapLaunchScreen.mp4 */,
+				383DE7C92260AE52002116DC /* GoogleService-Info.plist */,
 			);
 			path = blink;
 			sourceTree = "<group>";
@@ -192,6 +287,7 @@
 				D29C761E224D5342002AEEA0 /* Frameworks */,
 				D29C761F224D5342002AEEA0 /* Resources */,
 				71AA2AD558AB19D9F3D87B57 /* [CP] Embed Pods Frameworks */,
+				E633579273A787C174D31837 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -289,8 +385,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				D29C7631224D5343002AEEA0 /* LaunchScreen.storyboard in Resources */,
+				383DE7C2226090F5002116DC /* ledgerLeapLaunchScreen.mp4 in Resources */,
 				D29C762E224D5343002AEEA0 /* Assets.xcassets in Resources */,
+				383CD3B0225F768200405B37 /* ABCellMailStyleMenuView.xib in Resources */,
 				D29C762C224D5342002AEEA0 /* Main.storyboard in Resources */,
+				383DE7CA2260AE53002116DC /* GoogleService-Info.plist in Resources */,
+				38EDD2DA225CF6EF00312EDE /* HeaderView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -336,10 +436,14 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-blink/Pods-blink-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -363,6 +467,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E633579273A787C174D31837 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-blink/Pods-blink-resources.sh",
+				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-blink/Pods-blink-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F928E8631E3DE3CDB5414FA9 /* [CP] Check Pods Manifest.lock */ = {
@@ -390,13 +512,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				383DE7BE226074C4002116DC /* LoginViewController.swift in Sources */,
+				383DE7C4226094EB002116DC /* WelcomeViewController.swift in Sources */,
 				D29C7629224D5342002AEEA0 /* SecondViewController.swift in Sources */,
+				383CD3A6225F741C00405B37 /* ABMenuTableViewCell.m in Sources */,
+				38EDD2E0225CFB5800312EDE /* DateCell.swift in Sources */,
 				D22822A9225BC144007B8166 /* ContactsViewController.swift in Sources */,
 				D29C7625224D5342002AEEA0 /* AppDelegate.swift in Sources */,
 				D22AF8A82257A86B00FE7A1D /* UserProfileData.swift in Sources */,
 				D29C765722528FF0002AEEA0 /* BaseTabBarController.swift in Sources */,
 				D29C7655224D5C8D002AEEA0 /* ThirdViewController.swift in Sources */,
+				38EDD2E2225CFB6400312EDE /* RateCell.swift in Sources */,
+				38EDD2DE225CFAB500312EDE /* HistoryViewController.swift in Sources */,
+				383CD3AE225F746400405B37 /* ABCellMenuView.m in Sources */,
 				D29C7627224D5342002AEEA0 /* FirstViewController.swift in Sources */,
+				388667FA225E4AAB006D4370 /* Contact.swift in Sources */,
+				383DE7C022609073002116DC /* SplashViewController.swift in Sources */,
+				38EDD2E6225D0B1E00312EDE /* HCSStarRatingView.m in Sources */,
+				38EDD2D8225CF6B200312EDE /* HeaderView.swift in Sources */,
+				383CD3AB225F742D00405B37 /* UIView+XIB.m in Sources */,
+				383CD3A7225F741C00405B37 /* UITableView+VisibleMenuCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -584,6 +719,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.deedcoin.blink.blink;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "blink/HCSStarRatingView/blink-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -606,6 +742,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.deedcoin.blink.blink;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "blink/HCSStarRatingView/blink-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

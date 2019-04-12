@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Contacts
 
 class ThirdViewController: UIViewController,UITextFieldDelegate {
     
@@ -19,13 +20,59 @@ class ThirdViewController: UIViewController,UITextFieldDelegate {
     @IBOutlet weak var btnGenerate : UIButton!
     
     var smsImage = UIImage()
-    
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
         btnGenerate.layer.cornerRadius = 10
         btnGenerate.setupShadow()
+        
+        self.setupTextField(textField: fName)
+        self.setupTextField(textField: lName)
+        self.setupTextField(textField: mPosition)
+        self.setupTextField(textField: mCompany)
+        self.setupTextField(textField: mEmail)
+        self.setupTextField(textField: mPhone)
+    }
+    
+    func setupTextField(textField:UITextField)
+    {
+        textField.layer.borderWidth = 2
+        textField.layer.cornerRadius = 5
+        textField.layer.borderColor = UIColor.darkGray.cgColor
+        
+        let leftView = UIView.init(frame: CGRect.init(x: 10, y: 0, width: 10, height: 0))
+        textField.leftView = leftView
+        textField.leftViewMode = .always
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        
+        if appDelegate.isFromLogin{
+           
+            appDelegate.isFromLogin = false
+            self.openWelcome()
+        }
+    }
+    
+    func openWelcome()
+    {
+        let welcomeVC = self.storyboard?.instantiateViewController(withIdentifier: "WelcomeViewController") as! WelcomeViewController
+        
+        welcomeVC.modalTransitionStyle = .crossDissolve
+        
+        if (UIDevice.current.systemVersion as! NSString).floatValue >= 8.0{
+            
+            welcomeVC.modalPresentationStyle = .overCurrentContext
+            welcomeVC.definesPresentationContext = true
+        }
+        else{
+            welcomeVC.modalPresentationStyle = .currentContext
+        }
+        
+        self.present(welcomeVC, animated: true, completion: nil)
     }
     
     @IBAction func generateQRCodeButton(_ sender: UIButton) {
@@ -77,7 +124,18 @@ class ThirdViewController: UIViewController,UITextFieldDelegate {
             UserDefaults.standard.setValue(data, forKey: "QRCodeDetails")
             UserDefaults.standard.synchronize()
             
-            self.tabBarController?.selectedIndex = 0
+            let newDict = NSMutableDictionary()
+            newDict.setValue(fName.text!, forKey: "FirstName")
+            newDict.setValue(lName.text!, forKey: "LastName")
+            newDict.setValue(mPosition.text!, forKey: "Position")
+            newDict.setValue(mCompany.text!, forKey: "Company")
+            newDict.setValue(mEmail.text!, forKey: "email")
+            newDict.setValue(mPhone.text!, forKey: "phoneNumber")
+
+            let contactVC = self.storyboard?.instantiateViewController(withIdentifier: "ContactsViewController") as! ContactsViewController
+            contactVC.isFromGenerateCode = true
+            contactVC.dicDetail = newDict
+            self.navigationController?.pushViewController(contactVC, animated: true)
             
         }catch{
             

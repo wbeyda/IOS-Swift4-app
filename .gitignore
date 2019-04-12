@@ -1,4 +1,5 @@
 .DS_Store
+blink/.idea/
 blink/Pods/
 blink/Podfile.lock
 blink.xcodeproj/project.pbxproj

@@ -19,6 +19,7 @@ class FirstViewController: UIViewController {
     @IBOutlet weak var btnDailyReward : UIButton!
     @IBOutlet weak var btnUsePoints : UIButton!
     @IBOutlet weak var sw : UISwitch!
+    @IBOutlet weak var lblStatus: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -93,6 +94,8 @@ class FirstViewController: UIViewController {
     
     @IBAction func clickOnDownload(sender:UIButton)
     {
+        headerText.text = "Scan with camera to download the app!"
+        
         let color = UIColor.init(red: 109.0/255.0, green: 203.0/255.0, blue: 245.0/255.0, alpha: 1.0)
         let color2 = UIColor.init(red: 68.0/255.0, green: 91.0/255.0, blue: 167.0/255.0, alpha: 1.0)
         
@@ -101,7 +104,17 @@ class FirstViewController: UIViewController {
         btnDownload.backgroundColor = color2
     }
     
-    
+    @IBAction func clickOnSwitch(sender:UISwitch)
+    {
+        if sender.isOn{
+            
+            lblStatus.text = "Business"
+        }
+        else{
+            lblStatus.text = "Personal"
+
+        }
+    }
     
 }
 extension UIView {

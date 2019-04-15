@@ -118,7 +118,7 @@ class ContactsViewController: UIViewController, UITextFieldDelegate, UIImagePick
         let date = contact.recordDate?.creationDate
         
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd/MM/yyyy hh:mma"
+        dateFormatter.dateFormat = "MM/dd/yyyy hh:mma"
         
         let strDate = dateFormatter.string(from: date!)
         
@@ -229,7 +229,7 @@ class ContactsViewController: UIViewController, UITextFieldDelegate, UIImagePick
             vCard = "BEGIN:VCARD\nVERSION:2.1\nFN:\(arrName![0])\nN:\(arrName![0]);\(arrName![0])\nTITLE:\(positionText.text!)\nTEL;CELL:\(phoneText.text!)\nEMAIL;WORK;INTERNET:\(emailText.text!)\nEND:VCARD"
         }
         
-        let smsMessage = "SMSTO:\(phoneText.text!):Thanks for using iKontact. Download the app at https://ledgerleap.com/apps/iKontact/IOS/"
+        let smsMessage = "SMSTO:\(phoneText.text!):Thanks for using Gotcha Contacts. Download the app at https://ledgerleap.com/apps/iKontact/IOS/"
         
         let image = generateQRCode(from: vCard)
         let sms = generateQRCode(from: smsMessage)

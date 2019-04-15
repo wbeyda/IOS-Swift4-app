@@ -450,7 +450,7 @@ class HistoryViewController: UITableViewController,ABCellMenuViewDelegate {
         let date = contact.recordDate?.creationDate
         
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd/MM/yyyy hh:mma"
+        dateFormatter.dateFormat = "MM/dd/yyyy hh:mma"
         
         let strDate = dateFormatter.string(from: date!)
         

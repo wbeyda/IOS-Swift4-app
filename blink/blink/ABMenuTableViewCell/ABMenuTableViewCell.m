@@ -181,8 +181,8 @@ static CGFloat const kHighlightAnimationDuration = 0.45; // value obtained throu
         CGPoint velocity = [(UIPanGestureRecognizer*)gestureRecognizer velocityInView:self];
         
         // prevent swipeGesture before highlight animation completes
-        if (self.ongoingSelection)
-            return NO;
+       // if (self.ongoingSelection)
+           // return NO;
         
         // prevent swipeGesture when editing control is shown
         if (self.editing)

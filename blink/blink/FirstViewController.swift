@@ -20,7 +20,11 @@ class FirstViewController: UIViewController {
     @IBOutlet weak var btnUsePoints : UIButton!
     @IBOutlet weak var sw : UISwitch!
     @IBOutlet weak var lblStatus: UILabel!
-
+    
+    var isMyContactSelected : Bool = true
+    var isMyTextMeSelected : Bool = false
+    var isDownloadSelected : Bool = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -38,12 +42,19 @@ class FirstViewController: UIViewController {
         btnMyContact.setupShadow()
         btnTextMe.setupShadow()
         btnDownload.setupShadow()
-
+        
         sw.transform = CGAffineTransform.init(scaleX: 0.7, y: 0.7)
         sw.layer.cornerRadius = 16
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        
+        if UserDefaults.standard.object(forKey: "QRCodeDetailsBusiness") != nil{
+            sw.isEnabled = true
+        }
+        else{
+            sw.isEnabled = false
+        }
         
         if UserDefaults.standard.object(forKey: "QRCodeDetails") != nil{
             
@@ -55,29 +66,47 @@ class FirstViewController: UIViewController {
             headerText.text = "Scan with camera to add my contact!"
         }
         else{
-           // messageView.isHidden = false
+            // messageView.isHidden = false
         }
         
     }
     
     @IBAction func clickOnMyContact(sender:UIButton)
     {
+        self.isMyContactSelected = true
+        self.isMyTextMeSelected = false
+        self.isDownloadSelected = false
+        
         let color = UIColor.init(red: 109.0/255.0, green: 203.0/255.0, blue: 245.0/255.0, alpha: 1.0)
         let color2 = UIColor.init(red: 68.0/255.0, green: 91.0/255.0, blue: 167.0/255.0, alpha: 1.0)
         
         btnMyContact.backgroundColor = color2
         btnTextMe.backgroundColor = color
         btnDownload.backgroundColor = color
-
-        let dicQRCode = NSKeyedUnarchiver.unarchiveObject(with: UserDefaults.standard.object(forKey: "QRCodeDetails") as! Data) as! NSDictionary
-
         
-        qrCodeImage.image = (dicQRCode.value(forKey: "vCard") as! UIImage)
+        if sw.isOn{
+            
+            let dicQRCode = NSKeyedUnarchiver.unarchiveObject(with: UserDefaults.standard.object(forKey: "QRCodeDetailsBusiness") as! Data) as! NSDictionary
+            
+            qrCodeImage.image = (dicQRCode.value(forKey: "vCard") as! UIImage)
+        }
+        else{
+            
+            let dicQRCode = NSKeyedUnarchiver.unarchiveObject(with: UserDefaults.standard.object(forKey: "QRCodeDetails") as! Data) as! NSDictionary
+            
+            qrCodeImage.image = (dicQRCode.value(forKey: "vCard") as! UIImage)
+        }
+        
+        
         headerText.text = "Scan with camera to add my contact!"
     }
     
     @IBAction func clickOnTextMe(sender:UIButton)
     {
+        self.isMyContactSelected = false
+        self.isMyTextMeSelected = true
+        self.isDownloadSelected = false
+        
         let color = UIColor.init(red: 109.0/255.0, green: 203.0/255.0, blue: 245.0/255.0, alpha: 1.0)
         let color2 = UIColor.init(red: 68.0/255.0, green: 91.0/255.0, blue: 167.0/255.0, alpha: 1.0)
         
@@ -85,15 +114,29 @@ class FirstViewController: UIViewController {
         btnTextMe.backgroundColor = color2
         btnDownload.backgroundColor = color
         
-        let dicQRCode = NSKeyedUnarchiver.unarchiveObject(with: UserDefaults.standard.object(forKey: "QRCodeDetails") as! Data) as! NSDictionary
+        if sw.isOn{
+            
+            let dicQRCode = NSKeyedUnarchiver.unarchiveObject(with: UserDefaults.standard.object(forKey: "QRCodeDetailsBusiness") as! Data) as! NSDictionary
+            
+            qrCodeImage.image = (dicQRCode.value(forKey: "SMS") as! UIImage)
+        }
+        else{
+            
+            let dicQRCode = NSKeyedUnarchiver.unarchiveObject(with: UserDefaults.standard.object(forKey: "QRCodeDetails") as! Data) as! NSDictionary
+            
+            qrCodeImage.image = (dicQRCode.value(forKey: "SMS") as! UIImage)
+        }
         
         headerText.text = "Scan with camera to text me!"
-        qrCodeImage.image = (dicQRCode.value(forKey: "SMS") as! UIImage)
-
+        
     }
     
     @IBAction func clickOnDownload(sender:UIButton)
     {
+        self.isMyContactSelected = false
+        self.isMyTextMeSelected = false
+        self.isDownloadSelected = true
+        
         headerText.text = "Scan with camera to download the app!"
         
         let color = UIColor.init(red: 109.0/255.0, green: 203.0/255.0, blue: 245.0/255.0, alpha: 1.0)
@@ -112,7 +155,16 @@ class FirstViewController: UIViewController {
         }
         else{
             lblStatus.text = "Personal"
-
+        }
+        
+        if self.isMyContactSelected {
+            self.clickOnMyContact(sender: btnMyContact)
+        }
+        else if self.isMyTextMeSelected{
+            self.clickOnTextMe(sender: btnTextMe)
+        }
+        else{
+            self.clickOnDownload(sender: btnDownload)
         }
     }
     

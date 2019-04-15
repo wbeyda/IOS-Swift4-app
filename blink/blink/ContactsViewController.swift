@@ -12,21 +12,22 @@ import Contacts
 class ContactsViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     @IBOutlet weak var profileImage: UIImageView!
-    @IBOutlet weak var firstLastText: UITextField!
+    @IBOutlet weak var lblName: UILabel!
     @IBOutlet weak var phoneText: UITextField!
     @IBOutlet weak var emailText: UITextField!
     @IBOutlet weak var positionText: UITextField!
     @IBOutlet weak var companyText: UITextField!
+    @IBOutlet weak var lblDateAdded: UILabel!
     @IBOutlet weak var rateView: HCSStarRatingView!
+    @IBOutlet weak var rateViewHeight : NSLayoutConstraint!
     
-    var contact : Contact!
+    var contact : APContact!
     var isFromGenerateCode : Bool = false
     var dicDetail = NSMutableDictionary()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        firstLastText.delegate = self
         phoneText.delegate = self
         emailText.delegate = self
         companyText.delegate = self
@@ -37,8 +38,8 @@ class ContactsViewController: UIViewController, UITextFieldDelegate, UIImagePick
         
         if self.isFromGenerateCode{
             
-            self.rateView.value = 0.0
-            firstLastText.text = "\(dicDetail.value(forKey: "FirstName") as! String) \(dicDetail.value(forKey: "LastName") as! String)"
+            rateViewHeight.constant = 0.0
+            lblName.text = "\(dicDetail.value(forKey: "FirstName") as! String) \(dicDetail.value(forKey: "LastName") as! String)"
             
             phoneText.text = "\(dicDetail.value(forKey: "phoneNumber") as! String)"
             companyText.text = "\(dicDetail.value(forKey: "Company") as! String)"
@@ -55,7 +56,7 @@ class ContactsViewController: UIViewController, UITextFieldDelegate, UIImagePick
         self.setupTextField(textField: positionText)
         self.setupTextField(textField: emailText)
     }
-    
+  
     override func viewWillAppear(_ animated: Bool) {
       
         self.navigationController?.navigationBar.isHidden = false
@@ -63,18 +64,69 @@ class ContactsViewController: UIViewController, UITextFieldDelegate, UIImagePick
     
     func setupContactDetails()
     {
-        if contact.profileImage != nil{
-            profileImage.image = contact.profileImage
+        if contact.thumbnail != nil{
+            profileImage.image = contact.thumbnail
         }
         
-        firstLastText.text = "\(contact.firstName) \(contact.lastName)"
-        phoneText.text = contact.phoneNumbers[0].phoneNumber
-        if contact.emails.count > 0{
-            emailText.text = contact.emails[0].email
-        }
-        companyText.text = contact.company
-        self.rateView.value = CGFloat((contact.rating as! NSString).floatValue)
+        lblName.text = "\(self.contactName(contact))"
+        phoneText.text = "\(self.contactPhones(contact))"
+        emailText.text = "\(self.contactEmails(contact))"
+        rateView.value = CGFloat((contact.rating as! NSString).floatValue)
+        //companyText.text = contact.company
+        self.lblDateAdded.text = "Added : \(self.contactDates(contact))"
     }
+    
+    // MARK: - prviate
+    
+    func contactName(_ contact :APContact) -> String {
+        if let firstName = contact.name?.firstName, let lastName = contact.name?.lastName {
+            return "\(firstName) \(lastName)"
+        }
+        else if let firstName = contact.name?.firstName {
+            return "\(firstName)"
+        }
+        else if let lastName = contact.name?.lastName {
+            return "\(lastName)"
+        }
+        else {
+            return "Unnamed contact"
+        }
+    }
+    
+    func contactPhones(_ contact :APContact) -> String {
+        if let phones = contact.phones {
+            var phonesString = ""
+            phonesString = phones[0].number!
+           
+            return phonesString
+        }
+        return "No phone"
+    }
+    
+    func contactEmails(_ contact :APContact) -> String {
+        if let emails = contact.emails {
+            var emailString = ""
+            emailString = emails[0].address!
+          
+            return emailString
+        }
+        return "No email"
+    }
+    
+    func contactDates(_ contact :APContact) -> String {
+        
+        let date = contact.recordDate?.creationDate
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM/yyyy hh:mma"
+        
+        let strDate = dateFormatter.string(from: date!)
+        
+        print(strDate)
+        
+        return strDate
+    }
+    
     
     func setupTextField(textField:UITextField!)
     {
@@ -99,7 +151,6 @@ class ContactsViewController: UIViewController, UITextFieldDelegate, UIImagePick
     @IBAction func selectContactImageGesture(_ sender: UITapGestureRecognizer) {
         // Hide the keyboard.
         
-        firstLastText.resignFirstResponder()
         let imagePickerController = UIImagePickerController()
         imagePickerController.sourceType = .photoLibrary
         imagePickerController.delegate = self
@@ -167,7 +218,7 @@ class ContactsViewController: UIViewController, UITextFieldDelegate, UIImagePick
     
     func setupNewQRcode()
     {
-        let arrName = firstLastText.text?.components(separatedBy: " ")
+        let arrName = lblName.text?.components(separatedBy: " ")
         
         var vCard  : String!
         
@@ -225,8 +276,10 @@ class ContactsViewController: UIViewController, UITextFieldDelegate, UIImagePick
     
     @objc func clickOnDone()
     {
+        self.setupContactImage()
         self.setupNewQRcode()
         
+        /*
         contact.rating = "\(rateView.value)"
         
         if UserDefaults.standard.object(forKey: "rateDetails") != nil
@@ -258,14 +311,10 @@ class ContactsViewController: UIViewController, UITextFieldDelegate, UIImagePick
             UserDefaults.standard.synchronize()
             
         }
-        
+        */
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadContact"), object: nil, userInfo: nil)
         
         self.navigationController?.popViewController(animated: true)
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        
-        self.setupContactImage()
-    }
 }

@@ -15,72 +15,83 @@ class HistoryViewController: UITableViewController,ABCellMenuViewDelegate {
     @IBOutlet var lblSort : UILabel!
     
     var isSortByRate : Bool = false
-    var contactsStore: CNContactStore?
-    var arrContactsLess30Days = [Contact]()
-    var arrContactsMore30Days = [Contact]()
-    var arrContactsLess30DaysByDate = [Contact]()
-    var arrContactsMore30DaysByDate = [Contact]()
-    var arrFinalContact : [Contact] = []
     
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    
+    let addressBook = APAddressBook()
+    var contacts = [APContact]()
+    var dicContact = NSMutableDictionary()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.isSortByRate = true
-        self.lblSort.text = "By Rank"
+        self.isSortByRate = false
+        self.lblSort.text = "By Date"
         
-        NotificationCenter.default.addObserver(self, selector: #selector(self.setupContact), name: NSNotification.Name(rawValue: "reloadContact"), object: nil)
+        self.loadContacts(showProgress: true)
         
-        if appDelegate.arrContacts.count == 0{
-            
-            appDelegate.getContacts( {(contacts, error) in
-                if (error == nil) {
-                    DispatchQueue.main.async(execute: {
-                        
-                        self.appDelegate.arrContacts = contacts
-                        self.setupContact()
-                    })
+        NotificationCenter.default.addObserver(self, selector: #selector(self.refreshContact), name: NSNotification.Name(rawValue: "reloadContact"), object: nil)
+    }
+    
+    @objc func refreshContact()
+    {
+        self.loadContacts(showProgress: false)
+    }
+    
+    // MARK: - life cycle
+    
+    required init?(coder aDecoder: NSCoder)
+    {
+        super.init(coder: aDecoder);
+        addressBook.fieldsMask = .all
+        addressBook.sortDescriptors = [NSSortDescriptor(key: "recordDate.creationDate", ascending: false)]
+        addressBook.filterBlock =
+            {
+                (contact: APContact) -> Bool in
+                if let phones = contact.phones
+                {
+                    return phones.count > 0
                 }
-            })
+                return false
         }
-        else{
-            self.setupContact()
+        addressBook.startObserveChanges
+            {
+                [unowned self] in
+                self.loadContacts(showProgress: true)
         }
-        
     }
     
     
+    // MARK: - private
     
-    @objc func setupContact()
+    func loadContacts(showProgress:Bool)
     {
-        self.arrFinalContact = []
-        
-        for index in 0..<appDelegate.arrContacts.count{
-            
-            let contact = Contact.init(contact: appDelegate.arrContacts[index])
-            self.arrFinalContact.append(contact)
+        SVProgressHUD.show()
+        addressBook.loadContacts
+            {
+                [unowned self] (contacts: [APContact]?, error: Error?) in
+                
+                SVProgressHUD.dismiss()
+                self.contacts = [APContact]()
+                if let contacts = contacts
+                {
+                    self.contacts = contacts
+                    
+                    let sort24hours = SortDate.sortContactLast24hours(self.contacts)
+                    let sortLastWeek = SortDate.sortContactLastWeek(self.contacts)
+                    let sortContacts = SortDate.sortContact(self.contacts)
+                    
+                    self.dicContact.setObject(sort24hours, forKey: NSNumber.init(value: 0))
+                    self.dicContact.setObject(sortLastWeek, forKey: NSNumber.init(value: 1))
+                    self.dicContact.setObject(sortContacts, forKey: NSNumber.init(value: 2))
+                    
+                    self.tableView.reloadData()
+                }
+                else if let error = error
+                {
+                    
+                }
         }
-        
-        self.arrContactsLess30Days =  Array(self.arrFinalContact.prefix(4))
-        self.arrContactsLess30DaysByDate = Array(self.arrFinalContact.prefix(4))
-        
-        self.arrContactsLess30Days.sort { (a, b) -> Bool in
-            
-            return a.rating.localizedCaseInsensitiveCompare(b.rating) == .orderedDescending
-            
-        }
-        
-        self.arrContactsMore30Days =  Array(self.arrFinalContact[4..<self.arrFinalContact.count])
-        self.arrContactsMore30DaysByDate = Array(self.arrFinalContact[4..<self.arrFinalContact.count])
-        
-        self.arrContactsMore30Days.sort { (a, b) -> Bool in
-            
-            return a.rating.localizedCaseInsensitiveCompare(b.rating) == .orderedDescending
-            
-        }
-        
-        self.tableView.reloadData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -94,20 +105,13 @@ class HistoryViewController: UITableViewController,ABCellMenuViewDelegate {
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 2
+        return self.dicContact.count
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         
-        if section == 0{
-            
-            return self.arrContactsLess30Days.count
-            
-        }
-        else{
-            return self.arrContactsMore30Days.count
-        }
+        return (self.dicContact.object(forKey: NSNumber.init(value: section)) as! NSArray).count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -116,62 +120,61 @@ class HistoryViewController: UITableViewController,ABCellMenuViewDelegate {
             
             let cell = tableView.dequeueReusableCell(withIdentifier: "RateCell", for: indexPath) as! RateCell
             
-            let btnDetail = cell.contentView.viewWithTag(1005) as! UIButton
+            let lblName = cell.contentView.viewWithTag(1001) as! UILabel
+            let lblCity = cell.contentView.viewWithTag(1002) as! UILabel
+            let rateView = cell.contentView.viewWithTag(1003) as! HCSStarRatingView
+            let btnDetail = cell.contentView.viewWithTag(1004) as! UIButton
             
-            let contact : Contact!
+            let contact : APContact!
             
-            if indexPath.section == 0{
-                
-                contact = self.arrContactsLess30Days[indexPath.row]
-                
-                cell.lblName.text = "\(contact.firstName) \(contact.lastName)"
-                cell.lblCity.text = "\(contact.state) \(contact.city)"
-            }
-            else{
-                contact = self.arrContactsMore30Days[indexPath.row]
-                
-                cell.lblName.text = "\(contact.firstName) \(contact.lastName)"
-                cell.lblCity.text = "\(contact.state) \(contact.city)"
-            }
+            let arrContacts = self.dicContact.object(forKey: NSNumber.init(value: indexPath.section)) as! [APContact]
             
-            cell.rateView.value = CGFloat((contact.rating as! NSString).floatValue)
+            contact = arrContacts[indexPath.row]
+            
+            lblName.text = contactName(contact)
+            lblCity.text = contactAddress(contact)
+            rateView.value = CGFloat((contact.rating! as NSString).floatValue)
+            
             cell.selectionStyle = .none
             
-             btnDetail.addTarget(self, action: #selector(self.clickOnDetail(sender:)), for: UIControl.Event.touchUpInside)
-           
+            btnDetail.addTarget(self, action: #selector(self.clickOnDetail(sender:)), for: UIControl.Event.touchUpInside)
+            
+            rateView.addTarget(self, action: #selector(self.rateChange(rateView:)), for: UIControl.Event.valueChanged)
+            
             return cell
         }
         else{
             
             let cell = tableView.dequeueReusableCell(withIdentifier: "DateCell", for: indexPath) as! ABMenuTableViewCell
             
-            let contact : Contact!
+            let contact : APContact!
             
             let lblName = cell.contentView.viewWithTag(1001) as! UILabel
             let lblCity = cell.contentView.viewWithTag(1002) as! UILabel
+            let lblTime = cell.contentView.viewWithTag(1003) as! UILabel
+            let lblDate = cell.contentView.viewWithTag(1004) as! UILabel
             let btnDetail = cell.contentView.viewWithTag(1005) as! UIButton
-
-            if indexPath.section == 0{
-                
-                contact = self.arrContactsLess30DaysByDate[indexPath.row]
-                
-                lblName.text = "\(contact.firstName) \(contact.lastName)"
-                lblCity.text = "\(contact.state) \(contact.city)"
-            }
-            else{
-                contact = self.arrContactsMore30DaysByDate[indexPath.row]
-                
-                lblName.text = "\(contact.firstName) \(contact.lastName)"
-                lblCity.text = "\(contact.state) \(contact.city)"
-            }
+            
+            let arrContacts = self.dicContact.object(forKey: NSNumber.init(value: indexPath.section)) as! [APContact]
+            
+            contact = arrContacts[indexPath.row]
+            
+            lblName.text = contactName(contact)
+            lblCity.text = contactAddress(contact)
+            
+            let strDate = contactDates(contact)
+            let arrDate = strDate.components(separatedBy: " ")
+            
+            lblDate.text = arrDate[0]
+            lblTime.text = arrDate[1]
             
             let menuView = ABCellMenuView.initWithNib("ABCellMailStyleMenuView", bundle: nil)
             menuView?.delegate  = self
             menuView?.indexPath = indexPath
-            menuView!.rateView.value = CGFloat((contact.rating as! NSString).floatValue)
+            menuView!.rateView.value = CGFloat((contact.rating! as NSString).floatValue)
             cell.rightMenuView = menuView
             
-            btnDetail.addTarget(self, action: #selector(self.clickOnDetail(sender:)), for: .touchUpInside)
+            btnDetail.addTarget(self, action: #selector(self.clickOnDetail(sender:)), for: UIControl.Event.touchUpInside)
             
             cell.selectionStyle = .none
             
@@ -187,10 +190,13 @@ class HistoryViewController: UITableViewController,ABCellMenuViewDelegate {
         
         if section == 0{
             
-            headerView.lblName.text = "Last 30 days"
+            headerView.lblName.text = "Last 24hrs"
+        }
+        else if section == 1{
+            headerView.lblName.text = "Last Week"
         }
         else{
-            headerView.lblName.text = "More than 30 days"
+            headerView.lblName.text = "More Than 30 Days"
         }
         
         return headerView
@@ -222,10 +228,7 @@ class HistoryViewController: UITableViewController,ABCellMenuViewDelegate {
             return false
         }
         
-        
     }
-    
-    
     
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         // Remove seperator inset
@@ -242,21 +245,41 @@ class HistoryViewController: UITableViewController,ABCellMenuViewDelegate {
         }
     }
     
-   
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        if self.isSortByRate{
+            
+            let cell = self.tableView.cellForRow(at: indexPath)
+            let rateView = cell!.contentView.viewWithTag(1003) as! HCSStarRatingView
+            
+            rateView.backgroundColor = UIColor.clear
+            
+            for index in 0..<self.dicContact.count
+            {
+                var arrContacts = self.dicContact.object(forKey: NSNumber.init(value: index)) as! [APContact]
+                
+                arrContacts.sort { (a, b) -> Bool in
+                    
+                    return a.rating!.localizedCaseInsensitiveCompare(b.rating!) == .orderedDescending
+                }
+                
+                dicContact.setObject(arrContacts, forKey: NSNumber.init(value: index))
+            }
+            
+            self.tableView.reloadData()
+        }
+    }
+    
     func cellMenuViewMoreBtnTapped(_ menuView: ABCellMenuView!) {
         
-        let contact : Contact!
+        let contact : APContact!
         
-        if menuView.indexPath.section == 0{
-            
-            contact = self.arrContactsLess30DaysByDate[menuView.indexPath.row]
-        }
-        else{
-            contact = self.arrContactsMore30DaysByDate[menuView.indexPath.row]
-        }
+        let arrContacts = self.dicContact.object(forKey: NSNumber.init(value: menuView.indexPath.section)) as! [APContact]
+        
+        contact = arrContacts[menuView.indexPath.row]
         
         contact.rating = "\(menuView.rateView.value)"
-        let strPhone = contact.phoneNumbers[0].phoneNumber
+        let strPhone = self.contactPhones(contact)
         
         if UserDefaults.standard.object(forKey: "rateDetails") != nil
         {
@@ -277,7 +300,6 @@ class HistoryViewController: UITableViewController,ABCellMenuViewDelegate {
                 UserDefaults.standard.synchronize()
             }
             
-            
         }
         else{
             
@@ -290,6 +312,52 @@ class HistoryViewController: UITableViewController,ABCellMenuViewDelegate {
         
     }
     
+    @objc func rateChange(rateView:HCSStarRatingView)
+    {
+        rateView.backgroundColor = UIColor.init(red: 68.0/255.0, green: 91.0/255.0, blue: 167.0/255.0, alpha: 1.0)
+        
+        let cell = rateView.superview?.superview as! UITableViewCell
+        let indexPath = self.tableView.indexPath(for: cell)
+        
+        var contact : APContact!
+        
+        let arrContacts = self.dicContact.object(forKey: NSNumber.init(value: (indexPath?.section)!)) as! [APContact]
+        
+        contact = arrContacts[(indexPath?.row)!]
+        
+        contact.rating = "\(rateView.value)"
+        let strPhone = self.contactPhones(contact)
+        
+        if UserDefaults.standard.object(forKey: "rateDetails") != nil
+        {
+            let dic = UserDefaults.standard.object(forKey: "rateDetails") as! NSMutableDictionary
+            
+            if dic.value(forKey: strPhone) != nil{
+                
+                let newDic = NSMutableDictionary.init(dictionary: UserDefaults.standard.object(forKey: "rateDetails") as! [AnyHashable:Any])
+                newDic.setValue("\(rateView.value)", forKey: strPhone)
+                
+                UserDefaults.standard.setValue(newDic, forKey: "rateDetails")
+                UserDefaults.standard.synchronize()
+            }
+            else{
+                let dic = NSMutableDictionary.init(dictionary: UserDefaults.standard.object(forKey: "rateDetails") as! [AnyHashable:Any])
+                dic.setValue("\(rateView.value)", forKey: strPhone)
+                UserDefaults.standard.setValue(dic, forKey: "rateDetails")
+                UserDefaults.standard.synchronize()
+            }
+            
+        }
+        else{
+            
+            let dic = NSMutableDictionary()
+            dic.setValue("\(rateView.value)", forKey: strPhone)
+            UserDefaults.standard.setValue(dic, forKey: "rateDetails")
+            UserDefaults.standard.synchronize()
+            
+        }
+    }
+    
     @objc func clickOnDetail(sender:UIButton)
     {
         var cell = self.isSortByRate ? sender.superview?.superview as! RateCell : sender.superview?.superview as! ABMenuTableViewCell
@@ -299,23 +367,10 @@ class HistoryViewController: UITableViewController,ABCellMenuViewDelegate {
         let contactVC = self.storyboard?.instantiateViewController(withIdentifier: "ContactsViewController") as! ContactsViewController
         contactVC.hidesBottomBarWhenPushed  = true
         
-        if self.isSortByRate{
-            
-            if indexPath!.section == 0{
-                contactVC.contact = self.arrContactsLess30Days[indexPath!.row]
-            }
-            else{
-                contactVC.contact = self.arrContactsMore30Days[indexPath!.row]
-            }
-        }
-        else{
-            if indexPath!.section == 0{
-                contactVC.contact = self.arrContactsLess30DaysByDate[indexPath!.row]
-            }
-            else{
-                contactVC.contact = self.arrContactsMore30DaysByDate[indexPath!.row]
-            }
-        }
+        let arrContacts = self.dicContact.object(forKey: NSNumber.init(value: indexPath!.section)) as! [APContact]
+        
+        let contact = arrContacts[indexPath!.row]
+        contactVC.contact = contact
         
         self.navigationController?.pushViewController(contactVC, animated: true)
     }
@@ -326,12 +381,98 @@ class HistoryViewController: UITableViewController,ABCellMenuViewDelegate {
             
             self.isSortByRate = false
             self.lblSort.text = "By Date"
+            
+            let sort24hours = SortDate.sortContactLast24hours(self.contacts)
+            let sortLastWeek = SortDate.sortContactLastWeek(self.contacts)
+            let sortContacts = SortDate.sortContact(self.contacts)
+            
+            self.dicContact.setObject(sort24hours, forKey: NSNumber.init(value: 0))
+            self.dicContact.setObject(sortLastWeek, forKey: NSNumber.init(value: 1))
+            self.dicContact.setObject(sortContacts, forKey: NSNumber.init(value: 2))
+            
         }
         else{
+            
             self.isSortByRate = true
             self.lblSort.text = "By Rank"
+            
+            for index in 0..<self.dicContact.count
+            {
+                var arrContacts = self.dicContact.object(forKey: NSNumber.init(value: index)) as! [APContact]
+                
+                arrContacts.sort { (a, b) -> Bool in
+                    
+                    return a.rating!.localizedCaseInsensitiveCompare(b.rating!) == .orderedDescending
+                }
+                
+                dicContact.setObject(arrContacts, forKey: NSNumber.init(value: index))
+            }
+            
         }
+        self.tableView.reloadData()
         
-        self.setupContact()
+        
+    }
+    
+    // MARK: - prviate
+    
+    func contactName(_ contact :APContact) -> String {
+        if let firstName = contact.name?.firstName, let lastName = contact.name?.lastName {
+            return "\(firstName) \(lastName)"
+        }
+        else if let firstName = contact.name?.firstName {
+            return "\(firstName)"
+        }
+        else if let lastName = contact.name?.lastName {
+            return "\(lastName)"
+        }
+        else {
+            return "Unnamed contact"
+        }
+    }
+    
+    func contactPhones(_ contact :APContact) -> String {
+        if let phones = contact.phones {
+            var phonesString = ""
+            phonesString = phones[0].number!
+            //            for phone in phones {
+            //                if let number = phone.number {
+            //                    phonesString = phonesString + " " + number
+            //                }
+            //            }
+            return phonesString
+        }
+        return "No phone"
+    }
+    
+    func contactDates(_ contact :APContact) -> String {
+        
+        let date = contact.recordDate?.creationDate
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM/yyyy hh:mma"
+        
+        let strDate = dateFormatter.string(from: date!)
+        
+        print(strDate)
+        
+        return strDate
+    }
+    
+    func contactAddress(_ contact :APContact) -> String
+    {
+        if let addresses = contact.addresses {
+            var city = ""
+            for address in addresses {
+                if let strState = address.state {
+                    city = strState
+                }
+                if let strCity = address.city {
+                    city = city + " " + strCity
+                }
+            }
+            return city
+        }
+        return "No Address"
     }
 }

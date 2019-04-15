@@ -8,6 +8,7 @@
 
 import UIKit
 import Contacts
+import CoreTelephony
 
 class ThirdViewController: UIViewController,UITextFieldDelegate {
     
@@ -17,11 +18,17 @@ class ThirdViewController: UIViewController,UITextFieldDelegate {
     @IBOutlet weak var mCompany: UITextField!
     @IBOutlet weak var mEmail: UITextField!
     @IBOutlet weak var mPhone: UITextField!
+    @IBOutlet weak var txtBusineessPhone: UITextField!
+    @IBOutlet weak var txtBusineessEmail: UITextField!
     @IBOutlet weak var btnGenerate : UIButton!
+    @IBOutlet weak var mFacebook: UITextField!
+    @IBOutlet weak var mTwitter: UITextField!
+    @IBOutlet weak var mInstagram: UITextField!
+    
     
     var smsImage = UIImage()
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -35,6 +42,12 @@ class ThirdViewController: UIViewController,UITextFieldDelegate {
         self.setupTextField(textField: mCompany)
         self.setupTextField(textField: mEmail)
         self.setupTextField(textField: mPhone)
+        self.setupTextField(textField: txtBusineessPhone)
+        self.setupTextField(textField: txtBusineessEmail)
+        self.setupTextField(textField: mFacebook)
+        self.setupTextField(textField: mTwitter)
+        self.setupTextField(textField: mInstagram)
+
     }
     
     func setupTextField(textField:UITextField)
@@ -51,7 +64,7 @@ class ThirdViewController: UIViewController,UITextFieldDelegate {
     override func viewDidAppear(_ animated: Bool) {
         
         if appDelegate.isFromLogin{
-           
+            
             appDelegate.isFromLogin = false
             self.openWelcome()
         }
@@ -91,38 +104,95 @@ class ThirdViewController: UIViewController,UITextFieldDelegate {
             self.showAlertMessage(strMessage: "Please enter phone number!")
         }
         else{
-        
-        
-        /*
-         BEGIN:VCARD
-         VERSION:2.1
-         FN:John Peter
-         N:Peter;John
-         TITLE:Admin
-         TEL;CELL:+91 431 524 2345
-         TEL;WORK;VOICE:+91 436 542 8374
-         EMAIL;WORK;INTERNET:John@ommail.in
-         URL:www.facebook.com
-         ADR;WORK:;;423 ofce sales Center;Newark;DE;3243;USA
-         ORG:xxx Private limited
-         END:VCARD
-         */
-        //SMSTO:5551231234:other message stuff
-        let vCard = "BEGIN:VCARD\nVERSION:2.1\nFN:\(fName.text!)\nN:\(fName.text!);\(lName.text!)\nTITLE:\(mPosition.text!)\nTEL;CELL:\(mPhone.text!)\nEMAIL;WORK;INTERNET:\(mEmail.text!)\nEND:VCARD"
-        let smsMessage = "SMSTO:\(mPhone.text!):Thanks for using iKontact. Download the app at https://ledgerleap.com/apps/iKontact/IOS/"
-        
-        let image = generateQRCode(from: vCard)
-        let sms = generateQRCode(from: smsMessage)
-        
-        let dicQRCode = NSMutableDictionary()
-        dicQRCode.setValue(image, forKey: "vCard")
-        dicQRCode.setValue(sms, forKey: "SMS")
-        
-        do{
-            let data = try NSKeyedArchiver.archivedData(withRootObject: dicQRCode, requiringSecureCoding: true)
             
-            UserDefaults.standard.setValue(data, forKey: "QRCodeDetails")
-            UserDefaults.standard.synchronize()
+            
+            /*
+             BEGIN:VCARD
+             VERSION:2.1
+             FN:John Peter
+             N:Peter;John
+             TITLE:Admin
+             TEL;CELL:+91 431 524 2345
+             TEL;WORK;VOICE:+91 436 542 8374
+             EMAIL;WORK;INTERNET:John@ommail.in
+             URL:www.facebook.com
+             ADR;WORK:;;423 ofce sales Center;Newark;DE;3243;USA
+             ORG:xxx Private limited
+             END:VCARD
+             */
+            //SMSTO:5551231234:other message stuff
+            
+            //X-SOCIALPROFILE;type=twitter;x-user=twitteruser:http://twitter.com/twitteruser
+            //X-SOCIALPROFILE;type=facebook;x-user=facebookuser:http://www.facebook.com/facebookuser
+            //X-SOCIALPROFILE;TYPE=instagram:ekspressperevozki
+            
+            var emptyStringArray: [String] = []
+            
+            if mFacebook.text != "" {
+                emptyStringArray.append("X-SOCIALPROFILE;type=facebook;x-user=facebookuser:http://www.facebook.com/\(mFacebook.text!)\n")
+            }
+            if mTwitter.text != "" {
+                emptyStringArray.append("X-SOCIALPROFILE;type=twitter;x-user=twitteruser:http://twitter.com/\(mTwitter.text!)\n")
+            }
+            if mInstagram.text != "" {
+                emptyStringArray.append("X-SOCIALPROFILE;TYPE=instagram:\(mInstagram.text!)\n")
+            }
+            
+            var vCard = ""
+            if txtBusineessEmail.text != "" || txtBusineessPhone.text != ""
+            {
+                vCard += "BEGIN:VCARD\nVERSION:2.1\nFN:\(fName.text!)\nN:\(fName.text!);\(lName.text!)\nTITLE:\(mPosition.text!)\nTEL;CELL:\(txtBusineessPhone.text!)\nEMAIL;WORK;INTERNET:\(txtBusineessEmail.text!)\n"
+                
+                for i in emptyStringArray{
+                    vCard.append("\(i)")
+                }
+                
+                vCard.append("END:VCARD")
+                print(vCard)
+                
+                let smsMessage = "SMSTO:\(txtBusineessPhone.text!):Thanks for using Gotcha Contact. Download the app at https://ledgerleap.com/apps/iKontact/IOS/"
+                
+                let image = generateQRCode(from: vCard)
+                let sms = generateQRCode(from: smsMessage)
+                
+                let dicQRCode = NSMutableDictionary()
+                dicQRCode.setValue(image, forKey: "vCard")
+                dicQRCode.setValue(sms, forKey: "SMS")
+                
+                do{
+                    let data = try NSKeyedArchiver.archivedData(withRootObject: dicQRCode, requiringSecureCoding: true)
+                    
+                    UserDefaults.standard.setValue(data, forKey: "QRCodeDetailsBusiness")
+                    UserDefaults.standard.synchronize()
+                    
+                }catch{
+                    
+                }
+            }
+            vCard.append("BEGIN:VCARD\nVERSION:2.1\nFN:\(fName.text!)\nN:\(fName.text!);\(lName.text!)\nTITLE:\(mPosition.text!)\nTEL;CELL:\(mPhone.text!)\nEMAIL;WORK;INTERNET:\(mEmail.text!)\n")
+            for i in emptyStringArray{
+                vCard.append("\(i)")
+            }
+            vCard.append("END:VCARD")
+            
+            let smsMessage = "SMSTO:\(mPhone.text!):Thanks for using iKontact. Download the app at https://ledgerleap.com/apps/iKontact/IOS/"
+            
+            let image = generateQRCode(from: vCard)
+            let sms = generateQRCode(from: smsMessage)
+            
+            let dicQRCode = NSMutableDictionary()
+            dicQRCode.setValue(image, forKey: "vCard")
+            dicQRCode.setValue(sms, forKey: "SMS")
+            
+            do{
+                let data = try NSKeyedArchiver.archivedData(withRootObject: dicQRCode, requiringSecureCoding: true)
+                
+                UserDefaults.standard.setValue(data, forKey: "QRCodeDetails")
+                UserDefaults.standard.synchronize()
+                
+            }catch{
+                
+            }
             
             let newDict = NSMutableDictionary()
             newDict.setValue(fName.text!, forKey: "FirstName")
@@ -131,16 +201,11 @@ class ThirdViewController: UIViewController,UITextFieldDelegate {
             newDict.setValue(mCompany.text!, forKey: "Company")
             newDict.setValue(mEmail.text!, forKey: "email")
             newDict.setValue(mPhone.text!, forKey: "phoneNumber")
-
+            
             let contactVC = self.storyboard?.instantiateViewController(withIdentifier: "ContactsViewController") as! ContactsViewController
             contactVC.isFromGenerateCode = true
             contactVC.dicDetail = newDict
             self.navigationController?.pushViewController(contactVC, animated: true)
-            
-        }catch{
-            
-        }
-            
         }
         
     }

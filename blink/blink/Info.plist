@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>Gotcha Contacts</string>
+	<string>Gotcha </string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -38,11 +38,19 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>3</string>
+	<string>8.1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSContactsUsageDescription</key>
 	<string>blink need access to contacts to work</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>use location to find user current address.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>use location to find user current address.</string>
+	<key>NSLocationUsageDescription</key>
+	<string>use location to find user current address.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>use location to find user current address.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Need to access user photos to set profile pics</string>
 	<key>UILaunchStoryboardName</key>

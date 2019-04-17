@@ -47,13 +47,26 @@ class LoginViewController: UIViewController,GIDSignInUIDelegate,GIDSignInDelegat
             
             let userId = user.userID
             let email = user.profile.email
+            let name = user.profile.name
             
             let dic = NSMutableDictionary()
             dic.setValue(userId, forKey: "userID")
             dic.setValue(email, forKey: "email")
+           
+            let array = name?.components(separatedBy: " ")
+           
+            if array!.count > 1{
+                dic.setValue(array![0], forKey: "firstName")
+                dic.setValue(array![1], forKey: "lastName")
+            }
+            else{
+                dic.setValue(name, forKey: "firstName")
+            }
+
+            let delegate = UIApplication.shared.delegate as! AppDelegate
+            delegate.dicLoginDetails = dic
             
             self.showAlertMessage(strMessage: "login successfully!")
-            
             
         }
     }

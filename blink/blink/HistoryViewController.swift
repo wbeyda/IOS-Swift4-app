@@ -21,6 +21,7 @@ class HistoryViewController: UITableViewController,ABCellMenuViewDelegate {
     let addressBook = APAddressBook()
     var contacts = [APContact]()
     var dicContact = NSMutableDictionary()
+    var arrSelectedIndexPath = NSMutableArray()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -139,6 +140,22 @@ class HistoryViewController: UITableViewController,ABCellMenuViewDelegate {
             
             btnDetail.addTarget(self, action: #selector(self.clickOnDetail(sender:)), for: UIControl.Event.touchUpInside)
             
+            let swipeRight = UISwipeGestureRecognizer.init(target: self, action: #selector(self.swipeRight(gesture:)))
+            swipeRight.direction = .left
+            cell.addGestureRecognizer(swipeRight)
+            
+            if self.arrSelectedIndexPath.contains(indexPath){
+                
+                rateView.isUserInteractionEnabled = true
+                rateView.backgroundColor = UIColor.init(red: 68.0/255.0, green: 91.0/255.0, blue: 167.0/255.0, alpha: 1.0)
+                
+            }
+            else{
+                rateView.isUserInteractionEnabled = false
+                rateView.backgroundColor = UIColor.clear
+                
+            }
+            
             rateView.addTarget(self, action: #selector(self.rateChange(rateView:)), for: UIControl.Event.valueChanged)
             
             return cell
@@ -249,6 +266,8 @@ class HistoryViewController: UITableViewController,ABCellMenuViewDelegate {
         
         if self.isSortByRate{
             
+            self.arrSelectedIndexPath.remove(indexPath)
+            
             let cell = self.tableView.cellForRow(at: indexPath)
             let rateView = cell!.contentView.viewWithTag(1003) as! HCSStarRatingView
             
@@ -267,6 +286,25 @@ class HistoryViewController: UITableViewController,ABCellMenuViewDelegate {
             }
             
             self.tableView.reloadData()
+        }
+        else{
+            
+            let cell = self.tableView.cellForRow(at: indexPath) as! ABMenuTableViewCell
+            
+            if !cell.showingRightMenu{
+                
+                let contactVC = self.storyboard?.instantiateViewController(withIdentifier: "ContactsViewController") as! ContactsViewController
+                contactVC.hidesBottomBarWhenPushed  = true
+                
+                let arrContacts = self.dicContact.object(forKey: NSNumber.init(value: indexPath.section)) as! [APContact]
+                
+                let contact = arrContacts[indexPath.row]
+                contactVC.contact = contact
+                
+                self.navigationController?.pushViewController(contactVC, animated: true)
+            }
+            
+            
         }
     }
     
@@ -314,7 +352,6 @@ class HistoryViewController: UITableViewController,ABCellMenuViewDelegate {
     
     @objc func rateChange(rateView:HCSStarRatingView)
     {
-        rateView.backgroundColor = UIColor.init(red: 68.0/255.0, green: 91.0/255.0, blue: 167.0/255.0, alpha: 1.0)
         
         let cell = rateView.superview?.superview as! UITableViewCell
         let indexPath = self.tableView.indexPath(for: cell)
@@ -356,6 +393,20 @@ class HistoryViewController: UITableViewController,ABCellMenuViewDelegate {
             UserDefaults.standard.synchronize()
             
         }
+    }
+    
+    @objc func swipeRight(gesture:UISwipeGestureRecognizer)
+    {
+        let cell = gesture.view as! RateCell
+        
+        let indxPath = self.tableView.indexPath(for: cell)
+        
+        let rateView = cell.contentView.viewWithTag(1003) as! HCSStarRatingView
+        rateView.isUserInteractionEnabled = true
+        rateView.backgroundColor = UIColor.init(red: 68.0/255.0, green: 91.0/255.0, blue: 167.0/255.0, alpha: 1.0)
+        
+        self.arrSelectedIndexPath.add(indxPath)
+        
     }
     
     @objc func clickOnDetail(sender:UIButton)

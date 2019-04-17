@@ -10,17 +10,23 @@ import UIKit
 import IQKeyboardManagerSwift
 import Contacts
 import GoogleSignIn
+import CoreLocation
 
 typealias ContactsHandler = (_ contacts : [CNContact] , _ error : NSError?) -> Void
 
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate,CLLocationManagerDelegate {
 
     var window: UIWindow?
     var arrContacts : [CNContact] = []
     var contactsStore: CNContactStore?
     var isFromLogin : Bool = false
+    var dicLoginDetails = NSDictionary()
+    
+    //var locationManager = CLLocationManager()
+    //var latitude : Double = 0.0
+    //var longitude : Double = 0.0
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -33,8 +39,85 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         self.setupRootVC()
         
+        /*
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestAlwaysAuthorization()
+        locationManager.startUpdatingLocation()
+        */
+        
         return true
     }
+    
+    /*
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]){
+        
+        let location = locations.last
+        
+        latitude = (location?.coordinate.latitude)!
+        longitude = (location?.coordinate.longitude)!
+        
+        self.getAddress { (strAddress) in
+            
+            print(strAddress)
+        }
+    }
+    
+    func getAddress(handler: @escaping (String) -> Void)
+    {
+        var address: String = ""
+        let geoCoder = CLGeocoder()
+        let location = CLLocation(latitude: latitude, longitude: longitude)
+        //selectedLat and selectedLon are double values set by the app in a previous process
+        
+        geoCoder.reverseGeocodeLocation(location, completionHandler: { (placemarks, error) -> Void in
+            
+            // Place details
+            var placeMark: CLPlacemark?
+            placeMark = placemarks?[0]
+            
+            // Location name
+            if let locationName = placeMark?.name {
+                address += locationName + ", "
+            }
+            
+            // Street address
+            if let street = placeMark?.thoroughfare {
+                address += street + ", "
+            }
+            
+            if let subthoroghfare = placeMark?.subThoroughfare {
+                address += subthoroghfare + ", "
+            }
+            
+            // City
+            if let city = placeMark?.subAdministrativeArea! {
+                address += city + ", "
+            }
+            
+            if let subLocality = placeMark?.subLocality {
+                address += subLocality + ", "
+            }
+            
+            if let state = placeMark?.administrativeArea {
+                address += state + ", "
+            }
+            
+            // Zip code
+            if let zip = placeMark?.isoCountryCode {
+                address += zip + ", "
+            }
+            
+            // Country
+            if let country = placeMark?.country {
+                address += country
+            }
+            
+            // Passing address back
+            handler(address)
+        })
+    }
+    */
     
     func setupSplash()
     {

@@ -45,6 +45,7 @@ class ContactsViewController: UIViewController, UITextFieldDelegate, UIImagePick
             companyText.text = "\(dicDetail.value(forKey: "Company") as! String)"
             positionText.text = "\(dicDetail.value(forKey: "Position") as! String)"
             emailText.text = "\(dicDetail.value(forKey: "email") as! String)"
+            profileImage.image = dicDetail.value(forKey: "Profile") as? UIImage
 
         }
         else{
@@ -279,8 +280,7 @@ class ContactsViewController: UIViewController, UITextFieldDelegate, UIImagePick
         self.setupContactImage()
         self.setupNewQRcode()
         
-        /*
-        contact.rating = "\(rateView.value)"
+        //contact.rating = "\(rateView.value)"
         
         if UserDefaults.standard.object(forKey: "rateDetails") != nil
         {
@@ -311,7 +311,7 @@ class ContactsViewController: UIViewController, UITextFieldDelegate, UIImagePick
             UserDefaults.standard.synchronize()
             
         }
-        */
+        
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadContact"), object: nil, userInfo: nil)
         
         self.navigationController?.popViewController(animated: true)
